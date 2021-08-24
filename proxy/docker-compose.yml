@@ -14,9 +14,9 @@ services:
     volumes:
       - proxy_conf:/etc/nginx/
     restart: always
-    environment:
-      - NGINX_HOST=proxy.home
-      - NGINX_PORT=80
+#    environment:
+#      - NGINX_HOST=proxy.home
+#      - NGINX_PORT=80
 
 volumes:
   proxy_conf:
