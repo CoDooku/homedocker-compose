@@ -69,8 +69,8 @@ services:
 
 volumes:
   gitea_data:
-    name: gitea_data
+    external: true
   gitea_postgres:
-    name: gitea_postgres
+    external: true
   drone_data:
-    name: drone_data
+    external: true
