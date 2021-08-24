@@ -19,5 +19,5 @@ services:
       - "5380:8080"
 
 volumes:
-  gitea_data:
+  dns_conf:
     external: true
