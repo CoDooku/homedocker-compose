@@ -16,7 +16,7 @@ services:
       - GITEA__database__NAME=gitea
       - GITEA__database__USER=gitea
       - GITEA__database__PASSWD=gitea
-      - ROOT_URL=http://
+      - ROOT_URL=http://host.docker.internal:3000
     restart: always
     volumes:
       - gitea_data:/data
@@ -68,6 +68,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
-  gitea_data: {}
-  gitea_postgres: {}
-  drone_data: {}
+  gitea_data:
+    name: gitea_data
+  gitea_postgres:
+    name: gitea_postgres
+  drone_data:
+    name: drone_data
