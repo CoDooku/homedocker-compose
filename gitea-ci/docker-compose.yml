@@ -47,9 +47,9 @@ services:
     restart: always
     environment:
       - DRONE_GITEA_SERVER=http://host.docker.internal:3000
-#      - DRONE_GITEA_CLIENT_ID=<OAuth2_ID>
-#      - DRONE_GITEA_CLIENT_SECRET=<OAuth2_SECRET_KEY>
-#      - DRONE_RPC_SECRET=<DRONE-RUNNER_SECRET_KEY>
+      - DRONE_GITEA_CLIENT_ID=${DRONE_GITEA_CLIENT_ID}
+      - DRONE_GITEA_CLIENT_SECRET=${DRONE_GITEA_CLIENT_SECRET}
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_SERVER_HOST=host.docker.internal:8000
       - DRONE_SERVER_PROTO=http
 
@@ -61,7 +61,7 @@ services:
     environment:
       - DRONE_RPC_HOST=host.docker.internal:8000
       - DRONE_RPC_PROTO=http
-#      - DRONE_RPC_SECRET=<DRONE-RUNNER_SECRET_KEY>
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_RUNNER_CAPACITY=2
       - DRONE_RUNNER_NAME="drone-runner"
     volumes:
