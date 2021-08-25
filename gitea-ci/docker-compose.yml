@@ -55,7 +55,7 @@ services:
 
   drone-runner:
     image: drone/drone-runner-docker:latest
-    container_name: drone-server
+    container_name: drone-runner
     ports:
       - "3002:3000"
     environment:
