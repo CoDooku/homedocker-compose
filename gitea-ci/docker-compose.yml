@@ -45,7 +45,6 @@ services:
       - 4430:443
     volumes:
       - drone_data:/data
-      - drone:/var/lib/drone/
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
     environment:
@@ -77,6 +76,3 @@ volumes:
     external: true
   drone_data:
     external: true
-  drone:
-    external: true
-
