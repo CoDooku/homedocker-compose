@@ -29,6 +29,7 @@ services:
       - proxy_acme:/etc/acme.sh
     environment:
       - DEFAULT_EMAIL=slit8809@yandex.ru
+      - NGINX_PROXY_CONTAINER=proxy
 
 volumes:
   proxy_certs:
