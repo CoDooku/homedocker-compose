@@ -1,0 +1,34 @@
+version: '2'
+
+networks:
+  default:
+    name: local-stack
+
+services:
+  proxy:
+    container_name: proxy
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - proxy_certs:/etc/nginx/certs
+      - proxy_vhost:/etc/nginx/vhost.d
+      - proxy_html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  nginx-proxy-le:
+    container_name: proxy-acme
+    image: nginxproxy/acme-companion
+    volumes:
+      - proxy_certs:/etc/nginx/certs
+      - proxy_vhost:/etc/nginx/vhost.d
+      - proxy_html:/usr/share/nginx/html   
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - acme:/etc/acme.sh
+    environment:
+      - DEFAULT_EMAIL=slit8809@yandex.ru
+
+volumes:
+  portainer_data:
+    external: true
