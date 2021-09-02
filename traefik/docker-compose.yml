@@ -12,22 +12,24 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - 80:80
-      - 443:443 
+      - "80:80"
+      - "443:443"
+    expose:
+      - "8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefic_data:/data
+      - traefik_data:/etc/traefik/
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.entrypoints=https"
-      - "traefik.http.routers.traefik.rule=Host(`cubicmouse.asuscomm.com/traefik`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.rule=Host(`cubicmouse.asuscomm.com`) && (PathPrefix(`/traefik/`) || PathPrefix(`/api/`))"
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.routers.traefik.tls.certresolver=letsEncrypt"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.services.traefik-traefik.loadbalancer.server.port=888"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$apr1$$vDSqkf.v$$GTJOtsd9CBiAFFnHTI2Ds1"
-      - "traefik.http.routers.traefik.middlewares=traefik-auth"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik.middlewares=traefikstrip"
+      - "traefik.http.middlewares.traefikstrip.stripprefix.prefixes=/traefik"
 
 volumes:
-  traefic_data:
+  traefik_data:
     external: true
