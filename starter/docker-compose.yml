@@ -11,10 +11,14 @@ services:
     restart: always
     volumes:
       - starter_html:/usr/local/apache2/htdocs
-    environment:
-#      - VIRTUAL_HOST=${VIRTUAL_HOST}
-#      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
-#      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.starter.entrypoints=websecure"
+      - "traefik.http.routers.starter.rule=Host(`cubicmouse.asuscomm.com`)"
+      - "traefik.http.routers.starter.service=starter"
+      - "traefik.http.services.starter.loadbalancer.server.port=80"
+      - "traefik.http.routers.starter.tls=true"
+      - "traefik.http.routers.starter.tls.certresolver=letsEncrypt"
       
 volumes:
   starter_html:

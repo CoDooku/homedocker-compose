@@ -1,0 +1,20 @@
+version: '2'
+
+networks:
+  default:
+    name: local-stack
+
+services:
+  pi-compiler:
+    container_name: pi-compiler
+    image: mitchallen/pi-cross-compile:latest
+    volumes:
+      - pi_project:/usr/local/apache2/htdocs
+    environment:
+#      - VIRTUAL_HOST=${VIRTUAL_HOST}
+#      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+#      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      
+volumes:
+  starter_html:
+    external: true
