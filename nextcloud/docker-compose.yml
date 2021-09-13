@@ -41,9 +41,34 @@ services:
       - "traefik.http.routers.nextcloud.tls.certresolver=letsEncrypt"
       - "traefik.http.routers.nextcloud.middlewares=nextcloudstrip"
       - "traefik.http.middlewares.nextcloudstrip.stripprefix.prefixes=/nextcloud"
+  
+  cron:
+    container_name: nextcloud-app-cron
+    image: rcdailey/nextcloud-cronjob
+    restart: always
+    depends_on:
+    - nextcloud-app
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+    - NEXTCLOUD_CONTAINER_NAME=nextcloud-app
+
+  onlyoffice-document-server:
+    container_name: onlyoffice-document-server
+    image: onlyoffice/documentserver:latest
+    stdin_open: true
+    tty: true
+    restart: always
+    volumes:
+      - document_data:/var/www/onlyoffice/Data
+      - document_log:/var/log/onlyoffice
 
 volumes:
   nextcloud_data:
     external: true
   nextcloud_db:
+    external: true
+  document_data:
+    external: true
+  document_log:
     external: true
