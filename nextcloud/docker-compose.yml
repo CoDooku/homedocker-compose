@@ -23,7 +23,7 @@ services:
     image: nextcloud:latest
     restart: always
     links:
-      - db
+      - nextcloud-db
     volumes:
       - nextcloud_data:/var/www/html
     environment:
